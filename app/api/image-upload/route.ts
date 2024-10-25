@@ -20,15 +20,23 @@ interface CloudinaryUploadResult {
 
 export async function POST(request: NextRequest) {
 
-    // Retrieving the userId of the current user from Clerk.
-    const { userId } = auth();
-
-    // Authorization Check.
-    if (!userId) {
-        return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
     try {
+
+        // Retrieving the userId of the current user from Clerk.
+        const { userId } = auth();
+
+        // Authorization Check.
+        if (!userId) {
+            return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+        }
+
+        // Cloudinary credentials Check.
+        if (!process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME ||
+            !process.env.CLOUDINARY_API_KEY ||
+            !process.env.CLOUDINARY_API_SECRET) {
+            return NextResponse.json({ error: "Cloudinary credentials not found" }, { status: 500 });
+        }
+
         // Retrieves the file from the form data, casting it as a File object if available; if no file is found, it’s set to null.
         const formData = await request.formData();
         const file = formData.get("file") as File | null;
