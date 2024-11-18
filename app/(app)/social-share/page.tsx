@@ -74,7 +74,7 @@ export default function SocialShare() {
 
 
   return (
-    <div className="container mx-auto p-4 max-w-4xl bg-custom-gradient">
+    <div className="container sm:p-4 max-w-4xl bg-custom-gradient">
           <h1 className="text-3xl font-bold mb-6 text-accent-content">
             Social Media Image Creator
           </h1>
@@ -119,7 +119,7 @@ export default function SocialShare() {
 
                   <div className="mt-6 relative">
                     <h3 className="text-lg font-semibold mb-2">Preview:</h3>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center rounded-lg overflow-hidden">
                       {isTransforming && (
                         <div className="absolute inset-0 flex items-center justify-center bg-base-100 bg-opacity-50 z-10">
                           <span className="loading loading-spinner loading-lg"></span>
