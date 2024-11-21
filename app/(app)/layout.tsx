@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
-import { LayoutGrid, ImageUp, Film, ArrowBigRightDash } from 'lucide-react';
+import Image from 'next/image';
+import { LayoutGrid, ImageUp, Film, ArrowBigRightDash, AlignJustify } from 'lucide-react';
+import logo from '@/Assets/Transformify (500 x 100 px).svg'
 
 
 const navItems = [
@@ -10,13 +12,13 @@ const navItems = [
         icon: <LayoutGrid />
     },
     {
-        href: "/social-share",
+        href: "/socialImage-transform",
         label: "Image Transform",
         icon: <ImageUp />
     },
     {
         href: "/video-upload",
-        label: "Video Compression",
+        label: "Video Amelioration",
         icon: <Film />
     }
 ];
@@ -32,24 +34,17 @@ function AppLayout({
 
             <header className='w-full shadow-md'>
                 <div className="navbar bg-base-100 rounded-b-lg">
-                    <div className="flex-1">
-                        <a className="btn btn-ghost text-xl">TransFormer - AI SAAS</a>
+                    <div className="flex-1 flex items-center">
+                    <Image src={logo} alt="Transformify Logo" width={200} height={40} />
                     </div>
                     <div className="flex-none">
                         <ul className="menu menu-horizontal gap-3 px-1">
                             {navItems.map((item) => (
                                 <li key={item.label} className='hidden lg:flex text-primary font-medium text-xs hover:text-base-content rounded-lg'><Link href={item.href}>{item.icon}<span>{item.label}</span></Link></li>
                             ))}
-                            <li><button className='hidden lg:flex bg-primary text-base-100 font-medium text-xs rounded-lg hover:bg-primary hover:text-base-content '>Logout <span><ArrowBigRightDash /></span></button></li>
+                            <li><button className='hidden lg:flex bg-base-content text-base-100 font-medium text-xs rounded-lg hover:text-primary hover:bg-base-content '>Logout <span><ArrowBigRightDash /></span></button></li>
                             <li className='lg:hidden'>
-                                <details>
-                                    <summary>Menu</summary>
-                                    <ul className="bg-primary rounded-t-none p-2">
-                                        {navItems.map((item) => (
-                                            <li key={item.label} className='hidden lg:flex text-primary font-semibold hover:text-base-content rounded-lg'><Link href={item.href}>{item.icon}<span>{item.label}</span></Link></li>
-                                        ))}
-                                    </ul>
-                                </details>
+                               <button className='bg-transparent text-base-content'><AlignJustify /></button>
                             </li>
                         </ul>
                     </div>

@@ -15,8 +15,11 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Cloudinary AI SAAS",
+  title: "Transformify - AI SAAS",
   description: "SAAS for image transformation and video compression.",
+  icons: {
+    icon:'/favicon.svg',
+  },
 };
 
 export default function RootLayout({

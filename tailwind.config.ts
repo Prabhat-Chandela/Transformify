@@ -11,7 +11,12 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: [ "luxury"],
+    themes: [ {
+      luxury: {
+        ...require("daisyui/src/theming/themes")["luxury"],
+        "base-content": "#ebcc1b", // Override base-content color
+      },
+    },],
   },
 };
 export default config;

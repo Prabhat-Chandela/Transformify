@@ -30,7 +30,7 @@ function Home() {
     } catch (error) {
       console.log(error);
       setError("Failed to Fetch the videos");
-    } finally{
+    } finally {
       setLoading(false);
     }
   }, [])
@@ -40,7 +40,25 @@ function Home() {
   }, [fetchVideos])
 
   return (
-    <div>Home</div>
+    <section className='grid sm:grid-cols-12'>
+      <div className='w-full sm:col-span-8 xl:col-span-9'></div>
+      {videos.map((video, index) => (
+        <div key={video.id} className="card bg-base-100 w-96 shadow-xl">
+          <figure>
+            <img
+              src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
+              alt="Shoes" />
+          </figure>
+          <div className="card-body">
+            <h2 className="card-title">Shoes!</h2>
+            <p>If a dog chews shoes whose shoes does he choose?</p>
+            <div className="card-actions justify-end">
+              <button className="btn btn-primary">Buy Now</button>
+            </div>
+          </div>
+        </div>
+      ))}
+    </section>
   )
 }
 
