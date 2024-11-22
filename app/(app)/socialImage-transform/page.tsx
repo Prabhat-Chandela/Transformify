@@ -48,7 +48,7 @@ export default function SocialShare() {
     if (uploadedImage) {
       setIsTransforming(true);
     }
-  }, [uploadedImage, selectedFormat])
+  }, [uploadedImage, selectedFormat, enhance, removeBackground, restore, blackWhite])
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -90,7 +90,6 @@ export default function SocialShare() {
         link.click();
         document.body.removeChild(link);
         window.URL.revokeObjectURL(url);
-        document.body.removeChild(link);
       })
 
   }
@@ -147,7 +146,23 @@ export default function SocialShare() {
                         <label className="label cursor-pointer">
                           <span className="label-text">{imgEffect.nameOnScreen}
                           </span>
-                          <input type="checkbox" className="toggle toggle-primary" />
+                          <input type="checkbox" className="toggle toggle-primary"
+                            checked={
+                              imgEffect.effect === "Enhance Image" ? enhance :
+                              imgEffect.effect === "Remove image Background" ? removeBackground :
+                              imgEffect.effect === "Restore Blurry Image" ? restore :
+                              blackWhite
+                            }
+                            onChange={(e) =>
+                              imgEffect.effect === "Enhance Image" 
+                                ? setEnhance(e.target.checked)
+                                : imgEffect.effect === "Remove image Background"
+                                ? setRemoveBackground(e.target.checked)
+                                : imgEffect.effect === "Restore Blurry Image"
+                                ? setRestore(e.target.checked)
+                                : setBlackWhite(e.target.checked)
+                            }
+                          />
                         </label>
                       </div>
                     ))}
@@ -182,6 +197,7 @@ export default function SocialShare() {
                     removeBackground={removeBackground}
                     enhance={enhance}
                     restore={restore}
+                    blackwhite={blackWhite}
                     ref={imageRef}
                     onLoad={() => setIsTransforming(false)}
                   />
@@ -208,7 +224,23 @@ export default function SocialShare() {
                     <label className="label cursor-pointer">
                       <span className="label-text">{imgEffect.nameOnScreen}
                       </span>
-                      <input type="checkbox" className="toggle toggle-primary" />
+                      <input type="checkbox" className="toggle toggle-primary"
+                       checked={
+                        imgEffect.effect === "Enhance Image" ? enhance :
+                        imgEffect.effect === "Remove image Background" ? removeBackground :
+                        imgEffect.effect === "Restore Blurry Image" ? restore :
+                        blackWhite
+                      }
+                      onChange={(e) =>
+                        imgEffect.effect === "Enhance Image" 
+                          ? setEnhance(e.target.checked)
+                          : imgEffect.effect === "Remove image Background"
+                          ? setRemoveBackground(e.target.checked)
+                          : imgEffect.effect === "Restore Blurry Image"
+                          ? setRestore(e.target.checked)
+                          : setBlackWhite(e.target.checked)
+                      }
+                      />
                     </label>
                   </div>
                 ))}
