@@ -30,7 +30,7 @@ function AppLayout({
 }>
 ) {
     return (
-        <div className='w-full flex flex-col min-h-screen bg-base-200'>
+        <div className='w-full flex flex-col min-h-screen'>
 
             <header className='w-full shadow-md'>
                 <div className="navbar bg-base-100 rounded-b-lg">
