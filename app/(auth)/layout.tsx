@@ -45,4 +45,4 @@ function AppLayout({
     )
 }
 
-export default AppLayout
+export default AppLayout;
