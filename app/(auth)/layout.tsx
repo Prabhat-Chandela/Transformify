@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import logo from '@/Assets/Transformify (500 x 100 px).svg';
 import { UserPen, User } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 
 function AppLayout({
@@ -14,6 +14,7 @@ function AppLayout({
 ) {
 
     const router = useRouter();
+    const pathName = usePathname();
 
     return (
         <div className='w-full flex flex-col min-h-screen'>
@@ -27,8 +28,8 @@ function AppLayout({
                         </div>
 
                         <div className='flex gap-2'>
-                            <button onClick={() => router.push('/sign-up')} className="w-fit rounded-lg flex items-center font-medium py-2 px-3 sm:px-4 bg-base-100 text-accent-content hover:bg-base-content hover:text-base-100 shadow-lg transition-all ease-in duration-200 text-xs"><span className='hidden sm:inline-flex'>Sign-Up</span> <span className='inline-flex sm:ml-2'><UserPen size={18} /></span></button>
-                            <button onClick={() => router.push('/sign-in')} className="w-fit rounded-lg flex items-center font-medium py-2 px-3 sm:px-4 bg-base-100 text-accent-content hover:bg-base-content hover:text-base-100 shadow-lg transition-all ease-in duration-200 text-xs"><span className='hidden sm:inline-flex'>Sign-In </span><span className='inline-flex sm:ml-2'><User size={18} /></span></button>
+                            <button onClick={() => router.push('/sign-up')} className={`w-fit rounded-lg flex items-center font-medium py-2 px-3 sm:px-4 hover:bg-base-content hover:text-base-100 shadow-lg transition-all ease-in duration-200 text-xs ${pathName === '/sign-up' ? "bg-base-content text-base-100 " : "bg-base-100 text-accent-content"}`}><span className='hidden sm:inline-flex'>Sign-Up</span> <span className='inline-flex sm:ml-2'><UserPen size={18} /></span></button>
+                            <button onClick={() => router.push('/sign-in')} className={`w-fit rounded-lg flex items-center font-medium py-2 px-3 sm:px-4 hover:bg-base-content hover:text-base-100 shadow-lg transition-all ease-in duration-200 text-xs ${pathName === '/sign-in' ? "bg-base-content text-base-100 " : "bg-base-100 text-accent-content"}`}><span className='hidden sm:inline-flex'>Sign-In </span><span className='inline-flex sm:ml-2'><User size={18} /></span></button>
                         </div>
                     </div>
 
