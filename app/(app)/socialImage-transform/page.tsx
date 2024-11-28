@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { CldImage } from 'next-cloudinary';
+import ImageDragDrop from '@/Components/ImageDragDrop';
 
 
 const socialFormats = {
@@ -50,12 +51,12 @@ export default function SocialShare() {
     }
   }, [uploadedImage, selectedFormat, enhance, removeBackground, restore, blackWhite])
 
-  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
+  const handleFileUpload = async (file: File) => {
     if (!file) return;
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
+console.log(formData)
 
     try {
       const response = await fetch("/api/image-upload", {
@@ -96,26 +97,22 @@ export default function SocialShare() {
 
 
   return (
-    <section className="container p-2 sm:p-4 max-w-7xl grid lg:grid-cols-12 lg:gap-4 ">
+    <section className="container p-2 sm:p-4 xl:px-8 max-w-screen-2xl flex flex-col lg:justify-center gap-4 ">
 
-      <div className="card bg-base-100 shadow-md lg:col-span-8">
-        <div className="card-body">
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Choose an image file</span>
-            </label>
-            <input
-              type="file"
-              onChange={handleFileUpload}
-              className="file-input file-input-bordered file-input-primary w-full"
-            />
-          </div>
+      <div className='w-full'>
+        <ImageDragDrop handleFileUpload={(file) => handleFileUpload(file)} />
+      </div>
 
-          {isUploading && (
+      {isUploading && (
             <div className="mt-4">
               <progress className="progress progress-primary w-full"></progress>
             </div>
           )}
+
+      <div className="card bg-base-100 shadow-md w-full">
+        <div className="card-body">
+
+          
 
           {uploadedImage && (
             <div className="mt-6">
@@ -149,18 +146,18 @@ export default function SocialShare() {
                           <input type="checkbox" className="toggle toggle-primary"
                             checked={
                               imgEffect.effect === "Enhance Image" ? enhance :
-                              imgEffect.effect === "Remove image Background" ? removeBackground :
-                              imgEffect.effect === "Restore Blurry Image" ? restore :
-                              blackWhite
+                                imgEffect.effect === "Remove image Background" ? removeBackground :
+                                  imgEffect.effect === "Restore Blurry Image" ? restore :
+                                    blackWhite
                             }
                             onChange={(e) =>
-                              imgEffect.effect === "Enhance Image" 
+                              imgEffect.effect === "Enhance Image"
                                 ? setEnhance(e.target.checked)
                                 : imgEffect.effect === "Remove image Background"
-                                ? setRemoveBackground(e.target.checked)
-                                : imgEffect.effect === "Restore Blurry Image"
-                                ? setRestore(e.target.checked)
-                                : setBlackWhite(e.target.checked)
+                                  ? setRemoveBackground(e.target.checked)
+                                  : imgEffect.effect === "Restore Blurry Image"
+                                    ? setRestore(e.target.checked)
+                                    : setBlackWhite(e.target.checked)
                             }
                           />
                         </label>
@@ -225,21 +222,21 @@ export default function SocialShare() {
                       <span className="label-text">{imgEffect.nameOnScreen}
                       </span>
                       <input type="checkbox" className="toggle toggle-primary"
-                       checked={
-                        imgEffect.effect === "Enhance Image" ? enhance :
-                        imgEffect.effect === "Remove image Background" ? removeBackground :
-                        imgEffect.effect === "Restore Blurry Image" ? restore :
-                        blackWhite
-                      }
-                      onChange={(e) =>
-                        imgEffect.effect === "Enhance Image" 
-                          ? setEnhance(e.target.checked)
-                          : imgEffect.effect === "Remove image Background"
-                          ? setRemoveBackground(e.target.checked)
-                          : imgEffect.effect === "Restore Blurry Image"
-                          ? setRestore(e.target.checked)
-                          : setBlackWhite(e.target.checked)
-                      }
+                        checked={
+                          imgEffect.effect === "Enhance Image" ? enhance :
+                            imgEffect.effect === "Remove image Background" ? removeBackground :
+                              imgEffect.effect === "Restore Blurry Image" ? restore :
+                                blackWhite
+                        }
+                        onChange={(e) =>
+                          imgEffect.effect === "Enhance Image"
+                            ? setEnhance(e.target.checked)
+                            : imgEffect.effect === "Remove image Background"
+                              ? setRemoveBackground(e.target.checked)
+                              : imgEffect.effect === "Restore Blurry Image"
+                                ? setRestore(e.target.checked)
+                                : setBlackWhite(e.target.checked)
+                        }
                       />
                     </label>
                   </div>

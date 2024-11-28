@@ -1,15 +1,16 @@
 import { SignUp } from '@clerk/nextjs';
-import bg from '@/Assets/auth-page-bg.png';
+import signUpBg from '@/Assets/Transformify-signUp.webp';
+import Image from 'next/image';
 
 export default function Page() {
   return (
     <main className='min-h-screen w-full grid place-items-center'>
-      <div className='rounded-lg overflow-hidden sm:grid sm:grid-cols-12'>
+      <div className='rounded-lg overflow-hidden lg:grid lg:grid-cols-12 lg:w-[50rem]'>
 
-        <div className='sm:col-span-6'>
-
+        <div className='hidden lg:flex lg:col-span-6 overflow-hidden shadow-lg '>
+          <Image className='object-cover w-full h-full' src={signUpBg} alt='SignUp-image'/>
         </div>
-        <div className='sm:col-span-6'>
+        <div className='lg:col-span-6'>
           <SignUp />
         </div>
 
