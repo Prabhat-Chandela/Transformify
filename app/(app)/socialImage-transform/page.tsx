@@ -56,7 +56,6 @@ export default function SocialShare() {
     setIsUploading(true);
     const formData = new FormData();
     formData.append("file", file);
-console.log(formData)
 
     try {
       const response = await fetch("/api/image-upload", {
@@ -74,6 +73,12 @@ console.log(formData)
       alert("Failed to upload the image");
     } finally {
       setIsUploading(false);
+    }
+  }
+
+  const handleReset = (acceptanceStatus: boolean)=>{
+    if(acceptanceStatus === true){
+      setUploadedImage(null);
     }
   }
 
@@ -100,7 +105,7 @@ console.log(formData)
     <section className="container p-2 sm:p-4 xl:px-8 max-w-screen-2xl flex flex-col lg:justify-center gap-4 ">
 
       <div className='w-full'>
-        <ImageDragDrop handleFileUpload={(file) => handleFileUpload(file)} />
+        <ImageDragDrop handleFileUpload={(file) => handleFileUpload(file)} handleReset={(acceptanceStatus) => handleReset(acceptanceStatus)} />
       </div>
 
       {isUploading && (
