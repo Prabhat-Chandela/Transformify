@@ -71,7 +71,7 @@ const ImageDragDrop: React.FC<ImageDropComponentProps> = ({ handleFileUpload, ha
                     <img className='w-full object-cover' src={URL.createObjectURL(droppedImage)} alt='uploadedImagePreview'/>
                     </div>
 
-                        <div className='p-4 flex flex-col items-start sm:justify-between w-[90%] sm:w-[40%] lg:w-[42%] aspect-video sm:aspect-[16/12] lg:aspect-[16/7] bg-primary rounded-md'>
+                        <div className='p-4 flex flex-col items-start justify-between w-[90%] sm:w-[40%] lg:w-[42%] aspect-video sm:aspect-[16/12] lg:aspect-[16/7] bg-primary rounded-md'>
                             <div>
                             <div className='text-base-100 text-lg lg:text-xl uppercase flex items-center gap-2 font-medium'><span className='inline-flex'><Image /></span> Original Image : </div>
                             <p className="mb-4 mt-2 text-sm sm:text-lg font-medium text-base-100/70">
@@ -80,7 +80,7 @@ const ImageDragDrop: React.FC<ImageDropComponentProps> = ({ handleFileUpload, ha
                             </div>
                             
                             <button
-                            className="px-4 lg:pr-4 py-2 text-xs lg:text-sm bg-base-100 text-primary hover:text-base-content rounded-md flex items-center gap-2"
+                            className="px-4 py-2 text-xs sm:text-sm font-semibold bg-base-100 text-primary hover:text-base-100 hover:bg-base-content rounded-md flex items-center gap-2 transition-all ease-in duration-200"
                             onClick={resetFile}
                         >
                            <span><CircleX /></span> Cancel
