@@ -12,9 +12,9 @@ const config: Config = {
   plugins: [require("daisyui")],
   daisyui: {
     themes: [ {
-      luxury: {
-        ...require("daisyui/src/theming/themes")["luxury"],
-        "base-content": "#ebcc1b", // Override base-content color
+     black: {
+        ...require("daisyui/src/theming/themes")["black"],
+        "secondary-content": "#ebcc1b", // Override base-content color
       },
     },],
   },

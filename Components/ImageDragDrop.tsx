@@ -3,7 +3,7 @@ import { ImagePlus, Image, CircleX } from 'lucide-react';
 
 interface ImageDropComponentProps {
     handleFileUpload: (file: File) => void;
-    handleReset:(acceptanceStatus: boolean) => void;
+    handleReset: (acceptanceStatus: boolean) => void;
 }
 
 const ImageDragDrop: React.FC<ImageDropComponentProps> = ({ handleFileUpload, handleReset }) => {
@@ -58,56 +58,59 @@ const ImageDragDrop: React.FC<ImageDropComponentProps> = ({ handleFileUpload, ha
     };
 
     return (
-        <section
-            className={`w-full p-2 sm:p-4 bg-base-100 rounded-lg ${!isAcceptingFile ? 'h-fit' : 'h-72'}`}
-            onDragOver={(e) => e.preventDefault()}
-            onDrop={handleDrop}
-        >
-            <div className={`w-full h-full border border-dashed ${!isAcceptingFile ? 'border-base-content' : 'border-primary'} rounded-md p-2 grid place-items-center`}>
-                {droppedImage ? (
-                    <div className="flex flex-col sm:flex-row gap-2 sm:gap-10 items-center sm:justify-center">
-
-                    <div className='w-[90%] sm:w-[40%] lg:w-[42%] aspect-video sm:aspect-[16/12] lg:aspect-[16/7] rounded-md overflow-hidden border border-primary'>
-                    <img className='w-full object-cover' src={URL.createObjectURL(droppedImage)} alt='uploadedImagePreview'/>
-                    </div>
-
-                        <div className='p-4 flex flex-col items-start justify-between w-[90%] sm:w-[40%] lg:w-[42%] aspect-video sm:aspect-[16/12] lg:aspect-[16/7] bg-primary rounded-md'>
-                            <div>
-                            <div className='text-base-100 text-lg lg:text-xl uppercase flex items-center gap-2 font-medium'><span className='inline-flex'><Image /></span> Original Image : </div>
-                            <p className="mb-4 mt-2 text-sm sm:text-lg font-medium text-base-100/70">
-                            {droppedImage?.name}
-                            </p>
+        <section className={`max-w-[525px] sm:max-w-full p-2 lg:p-4 bg-base-100 grid gap-2 lg:gap-4 sm:grid-cols-12`}>
+            {
+                isAcceptingFile && !droppedImage ? (
+                    <div onDragOver={(e) => e.preventDefault()}
+                        onDrop={handleDrop}
+                        className='sm:col-span-6 bg-white rounded-md p-4 aspect-video min-[976px]:aspect-[16/7] flex flex-col justify-between'>
+                            <div className='w-full h-[40%] sm:h-[50%] px-2 grid place-items-center'>
+                                <p className='text-base-200 text-lg mb-2'>Drag & Drop Your Image For Transformation Here.</p>
                             </div>
-                            
-                            <button
-                            className="px-4 py-2 text-xs sm:text-sm font-semibold bg-base-100 text-primary hover:text-base-100 hover:bg-base-content rounded-md flex items-center gap-2 transition-all ease-in duration-200"
-                            onClick={resetFile}
-                        >
-                           <span><CircleX /></span> Cancel
-                        </button>
-                        </div>
-                       
-                    </div>
-                ) : (
-                    <div className="flex flex-col items-center justify-center gap-2">
-                        <div className='max-w-64 sm:max-w-2xl text-center bg-primary text-base-100 flex flex-col gap-2 p-4 rounded-lg'>
-                            <div className='w-full grid place-content-center'><ImagePlus /></div>
-                            <p className="mb-2 text-sm">
-                                Drag & drop an image here
-                            </p>
-                        </div>
-                        <div className="divider before:bg-base-content before:h-[1px] after:bg-base-content  after:h-[1px] text-primary text-xs">OR</div>
+                            <div className='divider divider-primary mt-0 mb-0 text-base-200'>OR</div>
                         <div className="form-control">
                             <input
                                 type="file"
                                 onChange={handleFileChange}
-                                className="file-input file-input-bordered file-input-primary max-w-64 sm:max-w-2xl"
+                                className="file-input file-input-bordered file-input-primary w-full"
                             />
                         </div>
-                        {error && <p className="mt-2 text-red-500">{error}</p>}
                     </div>
-                )}
-            </div>
+                ) : (
+                    <div className='sm:col-span-6 bg-white rounded-md p-4 aspect-video min-[976px]:aspect-[16/7] flex flex-col items-start justify-between'>
+                        <div>
+                            <div className='text-base-100 text-lg lg:text-xl uppercase flex items-center gap-2 font-medium'><span className='inline-flex'><Image /></span> Original Image : </div>
+                            <p className="mb-4 mt-2 text-sm sm:text-lg font-medium text-primary">
+                                {droppedImage?.name}
+                            </p>
+                        </div>
+
+                        <button
+                            className="px-4 py-2 text-xs sm:text-sm font-semibold bg-base-100 text-primary-content hover:text-base-100 hover:bg-secondary-content rounded-md flex items-center gap-2 transition-all ease-in duration-200"
+                            onClick={resetFile}
+                        >
+                            <span><CircleX /></span> Cancel
+                        </button>
+                    </div>
+                )
+            }
+
+            {
+                isAcceptingFile && !droppedImage ? (
+                    <div className='sm:col-span-6 rounded-md overflow-hidden aspect-video min-[976px]:aspect-[16/7] border border-white'>
+
+                    </div>
+                ) : (
+                    <div className='sm:col-span-6 rounded-md overflow-hidden aspect-video min-[976px]:aspect-[16/7] border border-white'>
+                        {
+                            droppedImage && <img className='w-full object-cover' src={URL.createObjectURL(droppedImage)} alt='uploadedImagePreview' />
+                        }
+                    </div>
+                )
+            }
+
+            {error && <p className="mt-2 w-full bg-primary-content text-base-200 p-2">{error}</p>}
+
         </section>
     )
 }

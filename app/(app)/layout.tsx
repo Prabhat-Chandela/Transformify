@@ -51,7 +51,7 @@ function AppLayout({
     }
 
     return (
-        <div className='w-full flex flex-col min-h-screen bg-primary-content overflow-x-hidden'>
+        <div className='w-full flex flex-col min-h-screen overflow-x-hidden'>
 
             <header className='w-full'>
                 <div className="navbar bg-transparent">
@@ -59,16 +59,16 @@ function AppLayout({
                     <Image src={logo} alt="Transformify Logo" width={200} height={40} />
                     </div>
                     <div className="flex-none relative">
-                    <button onClick={toggleMenu} className='lg:hidden bg-transparent text-base-content mr-2'>{showMenu ? <AlignRight />: <AlignJustify />}</button>
-                        <ul className={`menu menu-dropdown absolute right-0 top-16 z-50 bg-primary rounded-lg px-5 ${showMenu ? "translate-x-0" : "translate-x-[200%] lg:translate-x-0"} lg:static lg:bg-transparent lg:rounded-none lg:menu-horizontal gap-3 lg:px-1 transition-all ease-in duration-200`}>
+                    <button onClick={toggleMenu} className='lg:hidden bg-transparent text-white mr-2'>{showMenu ? <AlignRight />: <AlignJustify />}</button>
+                        <ul className={`menu menu-dropdown absolute right-0 top-16 z-50 bg-white rounded-lg px-5 ${showMenu ? "translate-x-0 h-screen w-[96vw] sm:w-[98vw] lg:h-fit lg:w-fit" : "translate-x-[200%] lg:translate-x-0"} lg:static lg:bg-transparent lg:rounded-none lg:menu-horizontal gap-3 lg:px-1 transition-all ease-in duration-200`}>
                             {navItems.map((item) => (
                                 <li key={item.label} onClick={closeMenu} className={` lg:flex font-medium text-xs hover:text-base-content rounded-lg ${pathName === item.href ? "text-base-content bg-base-100 lg:bg-transparent" : "text-base-100 lg:text-primary"}`}><Link href={item.href}>{item.icon}<span>{item.label}</span></Link></li>
                             ))}
-                            <li><button onClick={handleSignout} className='lg:flex bg-base-100 text-primary font-medium text-xs rounded-lg hover:text-base-100 hover:bg-base-content shadow-lg transition-all ease-in duration-200'>Logout <span><ArrowBigRightDash /></span></button></li>
+                            <li><button onClick={handleSignout} className='lg:flex bg-base-100 lg:bg-white text-white lg:text-base-100 font-medium text-xs rounded-lg hover:text-base-100 hover:bg-secondary-content shadow-lg transition-all ease-in duration-200'>Logout <span><ArrowBigRightDash /></span></button></li>
                         </ul>
                     </div>
                 </div>
-                <div className="divider before:bg-zinc-400 before:h-[1px] after:bg-zinc-400  after:h-[1px] mt-0 text-primary text-xs">TRANSFORMIFY</div>
+                <div className="divider mt-0 text-xs">TRANSFORMIFY</div>
             </header>
 
             <main className='w-full flex-1'>
