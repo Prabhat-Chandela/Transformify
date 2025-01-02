@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { CldImage } from 'next-cloudinary';
 import ImageDragDrop from '@/Components/ImageDragDrop';
-import { ImageUp, ScanEye, ImageOff, Image, Captions, CircleArrowDown } from 'lucide-react';
+import { ImageUp, ScanEye, ImageOff, Image, SquareLibrary, Sparkles, CircleArrowDown } from 'lucide-react';
 
 
 const socialFormats = {
@@ -29,7 +29,7 @@ const socialFilters = {
 const imageEffects = [
   {
     effect: "AI Enhance Image",
-    nameOnScreen: "Image Enhancer",
+    nameOnScreen: "Enhance",
     icon: <ImageUp />
   },
   {
@@ -39,7 +39,7 @@ const imageEffects = [
   },
   {
     effect: "AI Restore Blurry Image",
-    nameOnScreen: "Image Restore",
+    nameOnScreen: "Restore",
     icon: <ScanEye />
   },
   {
@@ -133,154 +133,154 @@ export default function SocialShare() {
 
 
   return (
-    <section className="container p-2 sm:p-4 xl:px-8 max-w-screen-2xl flex flex-col lg:justify-center gap-4 ">
+    <main className="container max-w-screen-lg grid gap-2 lg:gap-6 p-2">
 
-      <div className='w-full'>
-        <ImageDragDrop handleFileUpload={(file) => handleFileUpload(file)} handleReset={(acceptanceStatus) => handleReset(acceptanceStatus)} />
-      </div>
+      {isUploading ? (
+        <section className='w-full aspect-[8/10] sm:aspect-[16/8] overflow-hidden p-2'>
+          <div className="skeleton h-full w-full rounded-md"></div>
+        </section>
+      ) :
+        (
+          <section className='w-full h-fit overflow-hidden' >
+            {uploadedImage ?
+              (<div className='w-full p-4 overflow-hidden'>
 
-      {isUploading && (
-        <div className="mt-4">
-          <progress className="progress progress-primary w-full"></progress>
-        </div>
-      )}
+                <div className="card w-full bg-base-200 rounded-md">
+
+                  <div className="card-body shadow-md rounded-md">
+
+                    <div className="relative">
+                      <div className="flex justify-center rounded-lg overflow-hidden">
+                        {isTransforming && (
+                          <div className="absolute inset-0 flex items-center justify-center bg-base-100 bg-opacity-50 z-10">
+                            <span className="loading loading-spinner loading-lg"></span>
+                          </div>
+                        )}
+
+                        <CldImage
+                          width={socialFormats[selectedFormat].width}
+                          height={socialFormats[selectedFormat].height}
+                          src={uploadedImage}
+                          sizes="100vw"
+                          alt="transformed image"
+                          crop={crop}
+                          aspectRatio={socialFormats[selectedFormat].aspectRatio}
+                          fillBackground={fillBackground}
+                          gravity='auto'
+                          removeBackground={removeBackground}
+                          enhance={enhance}
+                          restore={restore}
+                          blackwhite={blackWhite}
+                          art={socialFilters[selectedFilter].filter}
+                          ref={imageRef}
+                          onLoad={() => setIsTransforming(false)}
+                        />
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+
+
+              </div>) :
+
+              (<ImageDragDrop handleFileUpload={(file) => handleFileUpload(file)} handleReset={(acceptanceStatus) => handleReset(acceptanceStatus)} />)
+            }
+          </section>
+        )}
 
 
       {uploadedImage && (
 
-        <div className='flex flex-col gap-6'>
+        <section className='w-full p-4 grid sm:grid-cols-12 gap-4'>
 
-          <div className="mt-6 bg-base-100 p-2 lg:p-4">
+          <div className="form-control bg-base-200 rounded-md p-2 flex flex-col gap-2 sm:col-span-6">
+            <h4 className="text-sm font-medium text-white uppercase flex items-center gap-2"><span><SquareLibrary /></span>Select Image Format :</h4>
+            <select
+              className="select select-bordered w-full"
+              value={selectedFormat}
+              onChange={(e) =>
+                setSelectedFormat(e.target.value as SocialFormat)
+              }
+            >
+              {Object.keys(socialFormats).map((format) => (
+                <option key={format} value={format}>
+                  {format}
+                </option>
+              ))}
+            </select>
+          </div>
 
-            <div className='w-full grid grid-cols-4 sm:grid-cols-8 gap-2 lg:gap-4'>
+          <div className="form-control bg-base-200 rounded-md p-2 flex flex-col gap-2 sm:col-span-6">
+            <h4 className="text-sm font-medium text-white uppercase flex items-center gap-2"><span><Sparkles /></span>Select Image Filter :</h4>
+            <select
+              className="select select-bordered w-full"
+              value={selectedFilter}
+              onChange={(e) =>
+                setSelectedFilter(e.target.value as SocialFilter)
+              }
+            >
+              {Object.keys(socialFilters).map((filter) => (
+                <option key={filter} value={filter}>
+                  {filter}
+                </option>
+              ))}
+            </select>
+          </div>
 
-              <div className="form-control col-span-4 bg-white rounded-md p-2">
-                <h2 className="card-title mb-4 text-primary uppercase"><span><Captions /></span>Select Image Format :</h2>
-                <select
-                  className="select select-bordered w-full"
-                  value={selectedFormat}
-                  onChange={(e) =>
-                    setSelectedFormat(e.target.value as SocialFormat)
-                  }
-                >
-                  {Object.keys(socialFormats).map((format) => (
-                    <option key={format} value={format}>
-                      {format}
-                    </option>
-                  ))}
-                </select>
-              </div>
+          <div className='grid grid-cols-4 gap-4 sm:col-span-6 '>
 
-              <div className="form-control col-span-4 bg-white rounded-md p-2">
-                <h2 className="card-title mb-4 text-primary uppercase"><span><Captions /></span>Select Image Filter :</h2>
-                <select
-                  className="select select-bordered w-full"
-                  value={selectedFilter}
-                  onChange={(e) =>
-                    setSelectedFilter(e.target.value as SocialFilter)
-                  }
-                >
-                  {Object.keys(socialFilters).map((filter) => (
-                    <option key={filter} value={filter}>
-                      {filter}
-                    </option>
-                  ))}
-                </select>
-              </div>
+            {imageEffects.map((imgEffect) => {
 
-            </div>
+              const isActive =
+                (imgEffect.effect === "AI Enhance Image" && enhance) ||
+                (imgEffect.effect === "Remove image Background" && removeBackground) ||
+                (imgEffect.effect === "AI Restore Blurry Image" && restore) ||
+                (imgEffect.effect === "Remove Text From Image" && blackWhite);
+
+
+              return (
+                <div key={imgEffect.effect} className={`form-control col-span-1 p-1 rounded-lg shadow-lg bg-base-200 ${isActive ? 'text-warning' : 'text-white'} hover:text-warning aspect-square transition-all ease-in duration-200`}>
+
+                  <button className="flex bg-base-100 rounded-md flex-col lg:gap-4 items-center justify-center w-full h-full"
+
+                    onClick={() =>
+                      imgEffect.effect === "AI Enhance Image"
+                        ? setEnhance(!enhance)
+                        : imgEffect.effect === "Remove image Background"
+                          ? handleRemoveBg()
+                          : imgEffect.effect === "AI Restore Blurry Image"
+                            ? setRestore(!restore)
+                            : setBlackWhite(!blackWhite)
+                    }
+                  >{imgEffect.icon} <span className='hidden lg:inline-flex text-xs'>{imgEffect.nameOnScreen}</span></button>
+
+                </div>
+              )
+            })}
+          </div>
+
+          <div className='sm:col-span-6 bg-base-200 rounded-md p-2'>
+
+              <label className="form-control w-full">
+                <div className="label">
+                  <span className="label-text text-white">Want to change backgroundColor?</span>
+                  <span className="label-text-alt text-white">Type below</span>
+                </div>
+                <input type="text" placeholder="Type here" className="input input-bordered w-full" />
+              </label>
 
           </div>
 
-        </div>
-      )}
+          <button className="sm:col-span-6 flex items-center gap-2 p-4 w-fit rounded-lg text-base-100 bg-white shadow-md text-xs font-semibold sm:text-sm hover:bg-warning transition-all ease-in duration-200" onClick={handleImageDownload}>
+            <span><CircleArrowDown /></span> Download for {selectedFormat}
+          </button>
 
-      {uploadedImage && (
-        <div className="card w-full p-2 lg:p-4 grid sm:grid-cols-8 gap-2 lg:gap-4">
-          <div className="card-body border border-white p-2 shadow-md rounded-md sm:col-span-4">
-
-            <div className="relative">
-              <h3 className="text-lg font-semibold mb-2 text-primary">Preview :</h3>
-              <div className="flex justify-center rounded-lg border border-primary overflow-hidden">
-                {isTransforming && (
-                  <div className="absolute inset-0 flex items-center justify-center bg-base-100 bg-opacity-50 z-10">
-                    <span className="loading loading-spinner loading-lg"></span>
-                  </div>
-                )}
-
-                <CldImage
-                  width={socialFormats[selectedFormat].width}
-                  height={socialFormats[selectedFormat].height}
-                  src={uploadedImage}
-                  sizes="100vw"
-                  alt="transformed image"
-                  crop={crop}
-                  aspectRatio={socialFormats[selectedFormat].aspectRatio}
-                  fillBackground={fillBackground}
-                  gravity='auto'
-                  removeBackground={removeBackground}
-                  enhance={enhance}
-                  restore={restore}
-                  blackwhite={blackWhite}
-                  art={socialFilters[selectedFilter].filter}
-                  ref={imageRef}
-                  onLoad={() => setIsTransforming(false)}
-                />
-              </div>
-            </div>
-
-          </div>
-
-          <div className="sm:col-span-4 p-2 lg:p-4 flex flex-col justify-between sm:rounded-md sm:bg-white">
-
-            <div className='grid grid-cols-4 gap-2 lg:gap-4 xl:gap-6'>
-
-              {imageEffects.map((imgEffect) => {
-
-                const isActive =
-                  (imgEffect.effect === "AI Enhance Image" && enhance) ||
-                  (imgEffect.effect === "Remove image Background" && removeBackground) ||
-                  (imgEffect.effect === "AI Restore Blurry Image" && restore) ||
-                  (imgEffect.effect === "Remove Text From Image" && blackWhite);
-
-
-                return (
-                  <div key={imgEffect.effect} className={`form-control col-span-1 p-2 rounded-lg shadow-lg ${isActive ? 'bg-secondary-content text-base-100' : 'bg-white text-base-100 sm:bg-base-100 sm:text-white'} hover:bg-secondary-content aspect-square transition-all ease-in duration-200`}>
-
-                    <button className="flex flex-col lg:gap-4 items-center justify-center w-full h-full"
-
-                      onClick={() =>
-                        imgEffect.effect === "AI Enhance Image"
-                          ? setEnhance(!enhance)
-                          : imgEffect.effect === "Remove image Background"
-                            ? handleRemoveBg()
-                            : imgEffect.effect === "AI Restore Blurry Image"
-                              ? setRestore(!restore)
-                              : setBlackWhite(!blackWhite)
-                      }
-                    >{imgEffect.icon} <span className='hidden sm:inline-flex text-xs'>{imgEffect.nameOnScreen}</span></button>
-
-                  </div>
-                )
-              })}
-            </div>
-
-            <div className="card-actions justify-start mt-6">
-              <button className="flex items-center gap-2 p-4 w-fit rounded-lg bg-white text-base-100 shadow-md text-xs font-semibold sm:text-sm sm:bg-base-100 sm:text-white  hover:bg-secondary-content hover-text-base-100 transition-all ease-in duration-200" onClick={handleImageDownload}>
-                <span><CircleArrowDown /></span> Download for {selectedFormat}
-              </button>
-            </div>
-
-          </div>
-
-
-        </div>
-
-
-
+        </section>
       )}
 
 
-    </section>
+    </main>
   )
 }

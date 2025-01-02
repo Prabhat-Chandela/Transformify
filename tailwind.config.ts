@@ -7,14 +7,18 @@ const config: Config = {
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage:{
+        dragDropBackground:"url('/image-background.jpg')",
+      }
+
+    },
   },
   plugins: [require("daisyui")],
   daisyui: {
     themes: [ {
      black: {
         ...require("daisyui/src/theming/themes")["black"],
-        "secondary-content": "#ebcc1b", // Override base-content color
       },
     },],
   },

@@ -1,43 +1,41 @@
-import React from 'react'
+"use client"
+
+import React from 'react';
+import VideoDragDrop from '@/Components/VideoDragDrop';
 
 function VideoUpload() {
   return (
-    <section className="container p-2 sm:p-4 max-w-7xl grid lg:grid-cols-12 lg:gap-4 ">
 
-      <div className="card bg-base-100 shadow-md lg:col-span-8">
-        <div className="card-body">
+    <main className="container max-w-screen-lg grid gap-2 lg:gap-6 p-2">
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Choose a video file</span>
-            </label>
-            <input
-              type="file" className="file-input file-input-bordered file-input-primary w-full"
-            />
-          </div>
+      <section className='w-full h-fit overflow-hidden'>
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Add a video title</span>
-            </label>
-            <input type="text" placeholder="Title" className="input input-bordered w-full" />
-          </div>
+        <VideoDragDrop />
 
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Add a video Description</span>
-            </label>
-            <textarea className="textarea textarea-bordered" placeholder="Description"></textarea>
-          </div>
+      </section>
 
+      <section className='w-full grid gap-4'>
+
+        <div className="form-control bg-base-200 rounded-md p-2">
+          <label className="label">
+            <span className="label-text">Add a video title</span>
+          </label>
+          <input type="text" placeholder="Title" className="input input-bordered w-full" />
         </div>
-      </div>
+
+        <div className="form-control bg-base-200 rounded-md p-2">
+          <label className="label">
+            <span className="label-text">Add a video Description</span>
+          </label>
+          <textarea className="textarea textarea-bordered" placeholder="Description"></textarea>
+        </div>
+
+      </section>
+
+    </main>
 
 
-
-
-    </section>
   )
 }
 
-export default VideoUpload
+export default VideoUpload;
