@@ -273,6 +273,16 @@ export default function SocialShare() {
 
           </div>
 
+
+          <div className='sm:col-span-12 bg-base-200 rounded-md p-2'>
+
+          <input
+  type="text"
+  placeholder="Type here"
+  className="input input-bordered input-lg w-full" />
+
+          </div>
+
           <button className="sm:col-span-6 flex items-center gap-2 p-4 w-fit rounded-lg text-base-100 bg-white shadow-md text-xs font-semibold sm:text-sm hover:bg-warning transition-all ease-in duration-200" onClick={handleImageDownload}>
             <span><CircleArrowDown /></span> Download for {selectedFormat}
           </button>
